@@ -1,9 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { builder } from '../index'
 
-import { fetchSettings } from '../actions';
+import { fetchToken } from '../actions';
 
 const Hero = styled.div`
     background-size: cover;
@@ -24,16 +25,16 @@ const Hero = styled.div`
 
 class Main extends React.Component {
     componentDidMount() {
-        this.props.fetchSettings()
+        this.props.fetchToken()
     }
 
     render() {
         return (
             <>
-                { this.props.main && (
+                { this.props.settings && this.props.settings.frontpageImage && (
                     <Hero style={{
-                        backgroundImage: `url(${builder.image(this.props.main.mainImage).url()})`,
-                        backgroundPosition: `${this.props.main.mainImage.hotspot.x * 100}% ${this.props.main.mainImage.hotspot.y * 100}%`
+                        backgroundImage: `url(${builder.image(this.props.settings.frontpageImage).url()})`,
+                        backgroundPosition: `${this.props.settings.frontpageImage.hotspot.x * 100}% ${this.props.settings.frontpageImage.hotspot.y * 100}%`
                     }}>Test</Hero>
                 )}
             </>
@@ -42,14 +43,15 @@ class Main extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    main: state.pagesReducer.pages.find(page => page.slug.current === '/')
+    settings: state.settingsReducer.settings,
+    facebook: state.facebookReducer
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetchSettings: () => dispatch(fetchSettings())
+    fetchToken: () => dispatch(fetchToken())
 })
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Main)
+)(Main))

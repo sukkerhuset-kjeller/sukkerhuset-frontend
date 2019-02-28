@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux'
-import pagesReducer from './pages'
+import pageReducer from './pages'
 import settingsReducer from './settings'
+import quizReducer from './quiz'
+import facebookReducer from './facebook'
 
 export default combineReducers({
-    pagesReducer,
-    settingsReducer
+    pageReducer,
+    settingsReducer,
+    quizReducer,
+    facebookReducer
 })

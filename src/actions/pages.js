@@ -15,7 +15,7 @@ const recievePages = pages => ({
 export const fetchPages = () => dispatch => {
     dispatch(requestPages)
 
-    return client.fetch('*[_type == "page"]')
+    return client.fetch('*[_type in ["page", "quiz"]]')
         .then(pages => {
             return dispatch(recievePages(pages))
         })

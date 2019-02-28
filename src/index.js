@@ -7,7 +7,7 @@ import rootReducer from './reducers'
 import sanityClient from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 import App from './App'
-import './index.css'
+import './index.scss'
 import * as serviceWorker from './serviceWorker'
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
