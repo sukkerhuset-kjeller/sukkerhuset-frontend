@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import styled, { css } from 'styled-components'
 import { FaBars } from 'react-icons/fa'
 
@@ -11,6 +11,8 @@ const StyledHeader = styled.header`
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
     margin-bottom: 2rem;
     padding: 0 1rem;
+    z-index: 2;
+    position: relative;
 `;
 
 const HeaderContent = styled.div`
@@ -27,7 +29,7 @@ const HeaderLogo = styled.img`
     height: 5rem;
 `;
 
-const Button = styled(Link)`
+const Button = styled(({pushright, primary, ...props}) => <Link {...props}/>)`
     text-decoration: none;
     padding: 0 1rem;
     height: 2rem;
@@ -52,12 +54,24 @@ const Button = styled(Link)`
     ${props => props.primary && css`
         background: #078B75;
         color: #ffffff;
+        margin-right: 4rem;
 
         &:hover {
             background: #067361;
         }
     `}
 `;
+
+const MainNavButton = styled((props) => <a {...props}><FaBars /></a>)`
+    font-size: 1.5rem;
+    color: #666666;
+    display: flex;
+`;
+
+const onClickMenu = e => {
+    e.preventDefault()
+    document.querySelector('.Menu').classList.toggle('open')
+}
 
 const Header = props => (
     <StyledHeader>
@@ -69,9 +83,9 @@ const Header = props => (
                     'Sukkerhuset'
                 )}
             </Link>
-            <Button pushright={true ? 1 : 0} to={'/frivillig'} className="button push-right">Bli frivillig</Button>
-            <Button primary={true ? 1 : 0} to={'/utleie'} className="button button--cta">Leie lokalet?</Button>
-            <a href="#" className="main-nav-toggle"><FaBars /></a>
+            <Button pushright to={'/frivillig'} className="button push-right">Bli frivillig</Button>
+            <Button primary to={'/utleie'} className="button button--cta">Leie lokalet?</Button>
+            <MainNavButton href="#" onClick={e => onClickMenu(e)} />
         </HeaderContent>
     </StyledHeader>
 )
@@ -84,7 +98,7 @@ const mapDispatchToProps = dispatch => ({
   
 })
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Header)
+)(Header))
