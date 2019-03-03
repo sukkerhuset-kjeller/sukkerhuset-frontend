@@ -40,7 +40,7 @@ const MenuLink = styled(NavLink)`
     }
 `;
 
-const Menu = () => (
+const Menu = props => (
     <MenuWrapper className="Menu">
         <MenuLink to={'/frivillig'}><FaUsers /> Frivillig</MenuLink>
         <MenuLink to={'/utleie'}><FaHome /> Utleie</MenuLink>

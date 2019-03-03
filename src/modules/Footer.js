@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -58,7 +58,20 @@ const FooterTitle = styled.h2`
     font-weight: 300;
 `;
 
-const Footer = (props) => {
+const FooterLink = styled(Link)`
+    font-size: .875rem;
+    font-weight: 300;
+    && {
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+`;
+
+const Footer = props => {
     return (
         <StyledFooter>
             <FooterRow>
@@ -71,6 +84,7 @@ const Footer = (props) => {
                             { props.settings.address && 
                                 <p>{props.settings.address}</p>
                             }
+                            <FooterLink to='privacy'>Privacy Policy</FooterLink>
                         </>
                     )}
                 </FooterInfo>

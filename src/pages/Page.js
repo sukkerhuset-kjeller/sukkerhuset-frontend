@@ -6,24 +6,19 @@ import BlockContent from '@sanity/block-content-to-react'
 import ContentArea from '../modules/ContentArea'
 import Table from '../modules/Table'
 
-class Page extends React.Component {
-    componentDidMount() {
-        
-    }
+const Page = props => {
 
-    render() {
-        return (
-            <ContentArea>
-                {this.props.page && (
-                    <>
-                    <h1>{this.props.page.title}</h1>
-                    {this.props.page.body && <BlockContent blocks={this.props.page.body} /> }
-                    {this.props.page.table && <Table table={this.props.page.table} /> }
-                    </>
-                )}
-            </ContentArea>
-        )
-    }
+    return (
+        <ContentArea>
+            {props.page && (
+                <>
+                <h1>{props.page.title}</h1>
+                {props.page.body && <BlockContent blocks={props.page.body} /> }
+                {props.page.table && <Table table={props.page.table} /> }
+                </>
+            )}
+        </ContentArea>
+    )
 }
 
 const mapStateToProps = (state, ownProps) => ({

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 
@@ -7,33 +7,25 @@ import { fetchQuiz } from '../actions'
 import ConetentArea from '../modules/ContentArea'
 import Table from '../modules/Table'
 
-class Quiz extends React.Component {
-    componentDidMount() {
-        if (this.props.page && this.props.page.spreadsheet) {
-            const { sheetId, sheetName } = this.props.page.spreadsheet
-            this.props.fetchQuiz(sheetId, sheetName)
-        }
-    }
+const Quiz = props => {
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.page !== this.props.page) {
-            const { sheetId, sheetName } = this.props.page.spreadsheet
-            this.props.fetchQuiz(sheetId, sheetName)
+    useEffect(() => {
+        if (props.page && props.page.spreadsheet) {
+            const { sheetId, sheetName } = props.page.spreadsheet
+            props.fetchQuiz(sheetId, sheetName)
         }
-    }
+    }, [props.page])
 
-    render() {
-        return (
-            <ConetentArea>
-                {this.props.page && (
-                    <>
-                    <h1>{this.props.page.title}</h1>
-                    {this.props.quiz && this.props.quiz.table && <Table table={this.props.quiz.table} /> }
-                    </>
-                )}
-            </ConetentArea>
-        )
-    }
+    return (
+        <ConetentArea>
+            {props.page && (
+                <>
+                <h1>{props.page.title}</h1>
+                {props.quiz && props.quiz.table && <Table table={props.quiz.table} /> }
+                </>
+            )}
+        </ConetentArea>
+    )
 }
 
 const mapStateToProps = (state, ownProps) => ({
