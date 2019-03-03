@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { builder } from '../index'
 
-import { fetchToken } from '../actions';
+import { fetchToken, fetchPosts, fetchEvents } from '../actions';
 
 const Hero = styled.div`
     background-size: cover;
@@ -23,23 +23,26 @@ const Hero = styled.div`
     justify-content: center;
 `;
 
-class Main extends React.Component {
-    componentDidMount() {
-        this.props.fetchToken()
-    }
+const Main = props => {
 
-    render() {
-        return (
-            <>
-                { this.props.settings && this.props.settings.frontpageImage && (
-                    <Hero style={{
-                        backgroundImage: `url(${builder.image(this.props.settings.frontpageImage).url()})`,
-                        backgroundPosition: `${this.props.settings.frontpageImage.hotspot.x * 100}% ${this.props.settings.frontpageImage.hotspot.y * 100}%`
-                    }}>Test</Hero>
-                )}
-            </>
-        )
-    }
+    useEffect(() => {props.fetchToken()}, [])
+    useEffect(() => {
+        if (props.facebook.token) {
+            props.fetchPosts(props.facebook.token)
+            props.fetchEvents(props.facebook.token)
+        }
+    }, [props.facebook.token])
+
+    return (
+        <>
+            { props.settings && props.settings.frontpageImage && (
+                <Hero style={{
+                    backgroundImage: `url(${builder.image(props.settings.frontpageImage).url()})`,
+                    backgroundPosition: `${props.settings.frontpageImage.hotspot.x * 100}% ${props.settings.frontpageImage.hotspot.y * 100}%`
+                }} />
+            )}
+        </>
+    )
 }
 
 const mapStateToProps = state => ({
@@ -48,7 +51,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetchToken: () => dispatch(fetchToken())
+    fetchToken: () => dispatch(fetchToken()),
+    fetchPosts: (token) => dispatch(fetchPosts(token)),
+    fetchEvents: (token) => dispatch(fetchEvents(token))
 })
 
 export default withRouter(connect(

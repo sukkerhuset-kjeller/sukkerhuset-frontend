@@ -68,27 +68,29 @@ const MainNavButton = styled((props) => <a {...props}><FaBars /></a>)`
     display: flex;
 `;
 
-const onClickMenu = e => {
-    e.preventDefault()
-    document.querySelector('.Menu').classList.toggle('open')
-}
+const Header = props => {
+    const onClickMenu = e => {
+        e.preventDefault()
+        document.querySelector('.Menu').classList.toggle('open')
+    }
 
-const Header = props => (
-    <StyledHeader>
-        <HeaderContent>
-            <Link to={'/'}>
-                {props.settings ? (
-                    <HeaderLogo src={builder.image(props.settings.logo).url()} alt={props.settings.pageName} />
-                ) : (
-                    'Sukkerhuset'
-                )}
-            </Link>
-            <Button pushright to={'/frivillig'} className="button push-right">Bli frivillig</Button>
-            <Button primary to={'/utleie'} className="button button--cta">Leie lokalet?</Button>
-            <MainNavButton href="#" onClick={e => onClickMenu(e)} />
-        </HeaderContent>
-    </StyledHeader>
-)
+    return (
+        <StyledHeader>
+            <HeaderContent>
+                <Link to={'/'}>
+                    {props.settings ? (
+                        <HeaderLogo src={builder.image(props.settings.logo).url()} alt={props.settings.pageName} />
+                    ) : (
+                        'Sukkerhuset'
+                    )}
+                </Link>
+                <Button pushright to={'/frivillig'} className="button push-right">Bli frivillig</Button>
+                <Button primary to={'/utleie'} className="button button--cta">Leie lokalet?</Button>
+                <MainNavButton href="#" onClick={e => onClickMenu(e)} />
+            </HeaderContent>
+        </StyledHeader>
+    )
+}
 
 const mapStateToProps = state => ({
   settings: state.settingsReducer.settings
