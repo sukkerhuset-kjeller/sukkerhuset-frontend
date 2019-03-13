@@ -21,4 +21,4 @@ const Privacy = props => {
     )
 }
 
-export default Privacy
+export default React.memo(Privacy)

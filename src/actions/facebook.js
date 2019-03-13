@@ -43,8 +43,8 @@ const recievePosts = posts => ({
 
 export const fetchPosts = (token) => dispatch => {
     dispatch(requestPosts)
-
-    return fetch(`https://graph.facebook.com/v3.2/151868258198492/posts?fields=type,caption,full_picture,link,message,message_tags,permalink_url,story&limit=12&access_token=${token}`)
+    // https://graph.facebook.com/v3.2/151868258198492/posts?fields=type,caption,full_picture,link,message,message_tags,permalink_url,story&limit=12&access_token=${token}
+    return fetch(`https://graph.facebook.com/v3.2/151868258198492/posts?limit=12&access_token=${token}`)
         .then(res => {
             if (!res.ok) throw Error(res.statusText);
             return res.json()
@@ -52,7 +52,7 @@ export const fetchPosts = (token) => dispatch => {
         .then(posts => {
             return dispatch(recievePosts(posts))
         })
-        .catch(error => console.error(error))
+        .catch(error => dispatch(recievePosts([])))
 }
 
 export const REQUEST_EVENTS = 'REQUEST_EVENTS';
@@ -76,7 +76,7 @@ export const fetchEvents = (token) => dispatch => {
             return res.json()
         })    
         .then(events => {
-            return dispatch(recieveEvents(events))
+            return dispatch(recieveEvents(events.data))
         })
-        .catch(error => console.error(error))
+        .catch(error => recieveEvents([]))
 }

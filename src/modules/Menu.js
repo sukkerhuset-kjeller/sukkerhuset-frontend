@@ -1,12 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from "react-router-dom";
+import { connect } from 'react-redux';
 import styled from 'styled-components'
-import { 
-    FaUsers, 
-    FaHome, 
-    FaQuestionCircle,
-    FaUserTie 
-} from 'react-icons/fa'
+
+import { fetchMenu } from '../actions';
 
 const MenuWrapper = styled.nav`
     position: absolute;
@@ -40,13 +37,28 @@ const MenuLink = styled(NavLink)`
     }
 `;
 
-const Menu = props => (
-    <MenuWrapper className="Menu">
-        <MenuLink to={'/frivillig'}><FaUsers /> Frivillig</MenuLink>
-        <MenuLink to={'/utleie'}><FaHome /> Utleie</MenuLink>
-        <MenuLink to={'/quiz'}><FaQuestionCircle /> Quiz</MenuLink>
-        <MenuLink to={'/styret'}><FaUserTie /> Styret</MenuLink>
-    </MenuWrapper>
-)
+const Menu = props => {
+    useEffect(() => {
+        props.fetchMenu()
+    }, [])
 
-export default Menu
+    return (
+        <MenuWrapper className="Menu">
+            <MenuLink key="home" exact to="/">Hjem</MenuLink>
+            {props.menu.map(menuItem => <MenuLink key={menuItem.slug} to={`/${menuItem.slug}`}>{menuItem.title}</MenuLink>)}
+        </MenuWrapper>
+    )
+}
+
+const mapStateToProps = state => ({
+    menu: state.menuReducer.menu
+})
+
+const mapDispatchToProps = dispatch => ({
+    fetchMenu: () => dispatch(fetchMenu())
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(React.memo(Menu))

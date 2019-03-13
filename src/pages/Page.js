@@ -8,21 +8,33 @@ import Table from '../modules/Table'
 
 const Page = props => {
 
+    const serializers = {
+        types: {
+          table: props => <Table table={props.node.table} />
+        }
+      }
+
     return (
+        <>
+        {
+            props.page &&
+            props.page.customStyle && 
+            <style>{props.page.customStyle.code}</style>
+        }
         <ContentArea>
             {props.page && (
                 <>
                 <h1>{props.page.title}</h1>
-                {props.page.body && <BlockContent blocks={props.page.body} /> }
-                {props.page.table && <Table table={props.page.table} /> }
+                {props.page.body && <BlockContent blocks={props.page.body} serializers={serializers} /> }
                 </>
             )}
         </ContentArea>
+        </>
     )
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    page: state.pageReducer.pages.find(page => page.link.slug.current === ownProps.match.params.slug)
+    page: state.pageReducer.pages.find(page => page.slug.current === ownProps.match.params.slug)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -32,4 +44,4 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Page))
+)(React.memo(Page)))
