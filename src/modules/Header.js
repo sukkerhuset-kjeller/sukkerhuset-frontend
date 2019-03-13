@@ -1,10 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { Link, withRouter } from "react-router-dom";
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { FaBars } from 'react-icons/fa'
 
 import { builder } from '../index'
+
+import LinkButton from './Button'
 
 const StyledHeader = styled.header`
     background: #ffffff;
@@ -29,39 +31,6 @@ const HeaderLogo = styled.img`
     height: 5rem;
 `;
 
-const Button = styled(({pushright, primary, ...props}) => <Link {...props}/>)`
-    text-decoration: none;
-    padding: 0 1rem;
-    height: 2rem;
-    line-height: 2rem;
-    display: inline-block;
-    text-transform: uppercase;
-    font-weight: 300;
-    background: #666666;
-    color: #ffffff;
-    -webkit-transition: background 100ms ease-in-out;
-    transition: background 100ms ease-in-out;
-
-    &:hover {
-        background: #595959;
-    }
-
-    ${props => props.pushright && css`
-        margin-left: auto;
-        margin-right: 2rem;
-    `}
-
-    ${props => props.primary && css`
-        background: #078B75;
-        color: #ffffff;
-        margin-right: 4rem;
-
-        &:hover {
-            background: #067361;
-        }
-    `}
-`;
-
 const MainNavButton = styled((props) => <a {...props}><FaBars /></a>)`
     font-size: 1.5rem;
     color: #666666;
@@ -84,8 +53,8 @@ const Header = props => {
                         'Sukkerhuset'
                     )}
                 </Link>
-                <Button pushright to={'/frivillig'} className="button push-right">Bli frivillig</Button>
-                <Button primary to={'/utleie'} className="button button--cta">Leie lokalet?</Button>
+                <LinkButton pushright to={'/frivillig'} className="button push-right">Bli frivillig</LinkButton>
+                <LinkButton primary to={'/utleie'} className="button button--cta">Leie lokalet?</LinkButton>
                 <MainNavButton href="#" onClick={e => onClickMenu(e)} />
             </HeaderContent>
         </StyledHeader>
@@ -103,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Header))
+)(React.memo(Header)))

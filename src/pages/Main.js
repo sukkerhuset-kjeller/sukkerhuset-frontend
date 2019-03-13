@@ -6,6 +6,9 @@ import { builder } from '../index'
 
 import { fetchToken, fetchPosts, fetchEvents } from '../actions';
 
+import ContentArea from '../modules/ContentArea'
+import Link from '../modules/Link'
+
 const Hero = styled.div`
     background-size: cover;
     background-position: center center;
@@ -23,8 +26,13 @@ const Hero = styled.div`
     justify-content: center;
 `;
 
-const Main = props => {
+const FlexContentArea = styled(ContentArea)`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+`;
 
+const Main = props => {
     useEffect(() => {props.fetchToken()}, [])
     useEffect(() => {
         if (props.facebook.token) {
@@ -41,6 +49,28 @@ const Main = props => {
                     backgroundPosition: `${props.settings.frontpageImage.hotspot.x * 100}% ${props.settings.frontpageImage.hotspot.y * 100}%`
                 }} />
             )}
+            <FlexContentArea>
+                <div>
+                    <h1>Dette skjer på sukkerhuset</h1>
+                    <div>
+                        {props.facebook.posts.length > 0 ?
+                            props.facebook.posts.map(post => post) :
+                            'Klarte ikke å laste innlegg...'
+                        }
+                    </div>
+                    <Link href="https://www.facebook.com/Sukkerhuset" target="_blank">Se mer på facebook</Link>
+                </div>
+                <div>
+                    <h1>Arrangementer</h1>
+                    <div>
+                        {props.facebook.events.length > 0 ?
+                            props.facebook.events.map(post => post) :
+                            'Klarte ikke å laste arrangementer...'
+                        }
+                    </div>
+                    <Link href="https://www.facebook.com/Sukkerhuset/events" target="_blank">Se alle arrangementer</Link>
+                </div>
+            </FlexContentArea>
         </>
     )
 }
@@ -59,4 +89,4 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Main))
+)(React.memo(Main)))

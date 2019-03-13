@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 import sanityClient from '@sanity/client'
@@ -10,7 +11,9 @@ import App from './App'
 import './index.scss'
 import * as serviceWorker from './serviceWorker'
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+
+
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 export const client = sanityClient({
     projectId: 'dwlpzwt9',

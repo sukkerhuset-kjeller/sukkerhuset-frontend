@@ -58,4 +58,4 @@ const Table = ({table}) => {
     ) : <></>
 }
 
-export default Table
+export default React.memo(Table)

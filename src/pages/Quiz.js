@@ -29,7 +29,7 @@ const Quiz = props => {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    page: state.pageReducer.pages.find(page => page.link.slug.current === 'quiz'),
+    page: state.pageReducer.pages.find(page => page.slug.current === 'quiz'),
     quiz: state.quizReducer.quiz
 })
 
@@ -40,4 +40,4 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Quiz))
+)(React.memo(Quiz)))
