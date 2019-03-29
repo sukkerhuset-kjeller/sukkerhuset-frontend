@@ -18,8 +18,12 @@ export const fetchToken = () => dispatch => {
     return client.fetch('*[_type == "settings"][0]{facebookAPI}')
         .then(res => {
             const {appId, appIdDev, appSecret, appSecretDev} = res.facebookAPI
-            const app_id = process.env.NODE_ENV === 'development' ? appIdDev : appId
-            const app_secret = process.env.NODE_ENV === 'development' ? appSecretDev : appSecret
+            let app_id = process.env.NODE_ENV === 'development' ? appIdDev : appId
+            let app_secret = process.env.NODE_ENV === 'development' ? appSecretDev : appSecret
+            
+            // HACK: Temporary override
+            app_id = appId
+            app_secret = appSecret
 
             return fetch(`https://graph.facebook.com/oauth/access_token?client_id=${app_id}&client_secret=${app_secret}&grant_type=client_credentials`)
             .then(res => res.json())    
@@ -43,14 +47,13 @@ const recievePosts = posts => ({
 
 export const fetchPosts = (token) => dispatch => {
     dispatch(requestPosts)
-    // https://graph.facebook.com/v3.2/151868258198492/posts?fields=type,caption,full_picture,link,message,message_tags,permalink_url,story&limit=12&access_token=${token}
-    return fetch(`https://graph.facebook.com/v3.2/151868258198492/posts?limit=12&access_token=${token}`)
+    return fetch(`https://graph.facebook.com/v3.2/151868258198492/?fields=posts.limit(12){full_picture,message,picture,type}&access_token=${token}`)
         .then(res => {
             if (!res.ok) throw Error(res.statusText);
             return res.json()
         })    
         .then(posts => {
-            return dispatch(recievePosts(posts))
+            return dispatch(recievePosts(posts.posts.data.filter(post => post.type === 'photo')))
         })
         .catch(error => dispatch(recievePosts([])))
 }
@@ -70,13 +73,13 @@ const recieveEvents = events => ({
 export const fetchEvents = (token) => dispatch => {
     dispatch(requestEvents)
 
-    return fetch(`https://graph.facebook.com/v3.2/151868258198492/events?limit=6&access_token=${token}`)
+    return fetch(`https://graph.facebook.com/v3.2/151868258198492/?fields=events.limit(6){id,name,start_time,cover}&access_token=${token}`)
         .then(res => {
             if (!res.ok) throw Error(res.statusText);
             return res.json()
         })    
         .then(events => {
-            return dispatch(recieveEvents(events.data))
+            return dispatch(recieveEvents(events.events.data))
         })
         .catch(error => recieveEvents([]))
 }
