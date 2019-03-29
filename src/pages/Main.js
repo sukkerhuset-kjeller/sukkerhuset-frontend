@@ -8,6 +8,8 @@ import { fetchToken, fetchPosts, fetchEvents } from '../actions';
 
 import ContentArea from '../modules/ContentArea'
 import Link from '../modules/Link'
+import Post from '../modules/Post'
+import Event from '../modules/Event'
 
 const Hero = styled.div`
     background-size: cover;
@@ -30,6 +32,21 @@ const FlexContentArea = styled(ContentArea)`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+
+    & > div {
+        margin-bottom: 1rem;
+        &:first-child {
+            width: 60%;
+            @media (max-width: 950px) {
+                order: 2;
+                width: 100%;
+            }
+            & > div {
+                display: flex;
+                flex-flow: row wrap;
+            }
+        }
+    }
 `;
 
 const Main = props => {
@@ -54,8 +71,8 @@ const Main = props => {
                     <h1>Dette skjer på sukkerhuset</h1>
                     <div>
                         {props.facebook.posts.length > 0 ?
-                            props.facebook.posts.map(post => post) :
-                            'Klarte ikke å laste innlegg...'
+                            props.facebook.posts.map(post => <Post key={post.id} data={post} />) :
+                            'Ingen innlegg tilgjengelig.'
                         }
                     </div>
                     <Link href="https://www.facebook.com/Sukkerhuset" target="_blank">Se mer på facebook</Link>
@@ -64,8 +81,8 @@ const Main = props => {
                     <h1>Arrangementer</h1>
                     <div>
                         {props.facebook.events.length > 0 ?
-                            props.facebook.events.map(post => post) :
-                            'Klarte ikke å laste arrangementer...'
+                            props.facebook.events.map((event, index) => <Event key={index} data={event} />) :
+                            'Ingen arrangementer tilgjengelig.'
                         }
                     </div>
                     <Link href="https://www.facebook.com/Sukkerhuset/events" target="_blank">Se alle arrangementer</Link>
