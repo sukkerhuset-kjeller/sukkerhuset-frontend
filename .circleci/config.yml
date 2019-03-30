@@ -32,17 +32,14 @@ jobs:
             - build
   deploy:
     working_directory: ~/repo
-    docker:
-      - image: circleci/node:11.6.0
+    machine:
+      enabled: true
     steps:
       - restore_cache:
           key: v1-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-      - add_ssh_keys:
-          fingerprints:
-            - "35:3b:27:78:5e:d7:c5:71:71:fd:a2:bc:2e:8d:3c:a0"
-      - run: ssh-keyscan -H login.domeneshop.no >> ~/.ssh/known_hosts 
+      - run: ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts 
       - run: sudo apt-get update && sudo apt-get install rsync
-      - run: rsync -va --delete build/ sukkerhuset@login.domeneshop.no:~/www/
+      - run: rsync -va --delete build/ $SSH_USER@$SSH_HOST:~/www/
       
 
 workflows:
@@ -50,10 +47,10 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      #- deploy:
-      #    requires:
-      #      - build
-      #    filters:
-      #      branches:
-      #        only:
-      #          - master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
