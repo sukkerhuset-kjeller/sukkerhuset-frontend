@@ -29,8 +29,12 @@ const StyledTable = styled.table`
 const MailLink = styled.a`
     color: #078B75;
     text-decoration: none;
-    text-transform: uppercase;
     font-size: .875rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    word-break: break-word;
+    hyphens: auto;
 
     &:hover {
         text-decoration: underline;
@@ -45,7 +49,7 @@ const Table = ({table}) => {
                     <tr key={rindex}>
                         {row.cells.map((cell, cindex) => (
                             <td key={cindex}>
-                                {cell.includes('@SUKKERHUSET.NO') ? 
+                                {cell.includes('@sukkerhuset.no') ? 
                                     <MailLink href={`mailto:${cell.toLowerCase()}`}>{cell}</MailLink> : 
                                     cell
                                 }

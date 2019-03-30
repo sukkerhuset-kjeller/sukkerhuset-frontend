@@ -108,7 +108,7 @@ const Footer = props => {
                     <FooterTitle>Sponsor</FooterTitle>
                     {
                         props.settings.sponsors && props.settings.sponsors.map(sponsor => (
-                            <img src={builder.image(sponsor.logo).url()} alt={sponsor.name} />
+                            <img key={sponsor.name} src={builder.image(sponsor.logo).url()} alt={sponsor.name} />
                         ))
                     }
                 </div>
