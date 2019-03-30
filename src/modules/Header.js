@@ -31,10 +31,19 @@ const HeaderLogo = styled.img`
     height: 5rem;
 `;
 
+const HeaderLinkButton = styled(LinkButton)`
+    @media (max-width: 700px) {
+        display: none;
+    }
+`;
+
 const MainNavButton = styled((props) => <a {...props}><FaBars /></a>)`
     font-size: 1.5rem;
-    color: #666666;
+    color: #000000;
     display: flex;
+    @media (max-width: 700px) {
+        margin-left: auto;
+    }
 `;
 
 const Header = props => {
@@ -53,8 +62,8 @@ const Header = props => {
                         'Sukkerhuset'
                     )}
                 </Link>
-                <LinkButton pushright to={'/frivillig'} className="button push-right">Bli frivillig</LinkButton>
-                <LinkButton primary to={'/utleie'} className="button button--cta">Leie lokalet?</LinkButton>
+                <HeaderLinkButton pushright to={'/frivillig'} className="button push-right">Bli frivillig</HeaderLinkButton>
+                <HeaderLinkButton primary to={'/utleie'} className="button button--cta">Leie lokalet?</HeaderLinkButton>
                 <MainNavButton href="#" onClick={e => onClickMenu(e)} />
             </HeaderContent>
         </StyledHeader>

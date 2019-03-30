@@ -7,7 +7,7 @@ import { builder } from '../index'
 const StyledFooter = styled.footer`
     background: #666666;
     color: #f5f5f5;
-    padding: 1rem 0;
+    padding: 1rem 1rem;
 
     p {
         font-weight: 300;
@@ -38,18 +38,32 @@ const FooterRow = styled.div`
     flex-flow: row nowrap;
     justify-content: center;
     padding: 1rem 0;
+
+    @media (max-width: 550px) {
+        &:first-child {
+            flex-flow: column nowrap;
+            align-items: center;
+        }
+    }
 `;
 
 const FooterInfo = styled.div`
     width: calc(50% - 1rem);
-    margin-right: 1rem;
-    text-align: right;
-
-    &:last-child {
-        margin-right: 0;
-        margin-left: 1rem;
-        text-align: left;
+    text-align: center;
+    &:first-child {
+        margin-bottom: 1rem;
     }
+
+    @media (min-width: 550px) {
+        text-align: left;
+        margin-left: 1rem;
+        &:first-child {
+            margin-right: 1rem;
+            margin-left: 0;
+            text-align: right;
+        }
+    }
+    
 `;
 
 const FooterTitle = styled.h2`
