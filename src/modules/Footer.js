@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { builder } from '../index'
 
 const StyledFooter = styled.footer`
     background: #666666;
@@ -105,7 +106,11 @@ const Footer = props => {
             <FooterRow>
                 <div>
                     <FooterTitle>Sponsor</FooterTitle>
-                    <img src="https://sukkerhuset.no/wp-content/themes/sukkerhuset/assets/images/sit-logo.svg" alt="SiT logo" />
+                    {
+                        props.settings.sponsors && props.settings.sponsors.map(sponsor => (
+                            <img src={builder.image(sponsor.logo).url()} alt={sponsor.name} />
+                        ))
+                    }
                 </div>
             </FooterRow>
         </StyledFooter>
