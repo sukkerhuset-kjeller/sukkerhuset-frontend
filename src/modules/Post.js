@@ -18,8 +18,12 @@ const PostArticle = styled.article`
     -ms-word-break: break-all;
     word-break: break-word;
 
-    @media (max-width: 950px) {
+    @media (max-width: 950px) and (min-width: 700px) {
         width: calc(100% / 3 - 16px);
+    }
+
+    @media (max-width: 450px) {
+        width: calc(100% - 16px);
     }
 
     & > img {
