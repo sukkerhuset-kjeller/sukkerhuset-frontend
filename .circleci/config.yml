@@ -40,8 +40,15 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "a9:03:29:d8:21:dd:a2:ec:fe:c3:52:d3:99:c7:94:fa"
-      - run: ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts 
-      - run: rsync -va --delete build/ $SSH_USER@$SSH_HOST:~/www/
+      - run:
+          name: Add known hosts
+          command: ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+      - run:
+          name: Install rsync
+          command: sudo apt-get update && sudo apt-get install rsync
+      - run:
+          name: Deploy to sukkerhuset.no
+          command: rsync -va --delete build/ $SSH_USER@$SSH_HOST:~/www/
       
 
 workflows:
