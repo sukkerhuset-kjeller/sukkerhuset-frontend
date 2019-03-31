@@ -1,4 +1,5 @@
-# Sukkerhuset Frontend
+Sukkerhuset Frontend [![CircleCI](https://circleci.com/gh/sukkerhuset-kjeller/sukkerhuset-frontend/tree/master.svg?style=shield)](https://circleci.com/gh/sukkerhuset-kjeller/sukkerhuset-frontend/tree/master)
+=================
 
 ## Available Scripts
 
