@@ -1,22 +1,12 @@
 Sukkerhuset Frontend [![CircleCI](https://circleci.com/gh/sukkerhuset-kjeller/sukkerhuset-frontend/tree/master.svg?style=shield)](https://circleci.com/gh/sukkerhuset-kjeller/sukkerhuset-frontend/tree/master)
 =================
 
-## Available Scripts
+This is the frontend of Sukkerhuset's website. It is buildt with React (create-react-app).
+[The backend for the webpage is available here](https://github.com/sukkerhuset-kjeller/sukkerhuset-backend).
 
-In the project directory, you can run:
+## Get started
 
-### `yarn start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+1. Clone this repository `$ git clone https://github.com/sukkerhuset-kjeller/sukkerhuset-frontend.git`
+2. Open the folder for the directory `$ cd sukkerhuset-frontend`
+3. Install dependencies using yarn `$ yarn`
+4. Start development server `$ yarn start`
