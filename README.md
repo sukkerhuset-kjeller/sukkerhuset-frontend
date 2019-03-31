@@ -1,4 +1,4 @@
-# Sukkerhuset Frontend [![CircleCI](https://circleci.com/gh/sukkerhuset-kjeller/sukkerhuset-frontend/tree/master.svg?style=shield)](https://circleci.com/gh/sukkerhuset-kjeller/sukkerhuset-frontend/tree/master) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+# Sukkerhuset Frontend [![CircleCI](https://circleci.com/gh/sukkerhuset-kjeller/sukkerhuset-frontend/tree/master.svg?style=shield)](https://circleci.com/gh/sukkerhuset-kjeller/sukkerhuset-frontend/tree/master) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=rounded-square)](https://github.com/prettier/prettier)
 
 This is the frontend of Sukkerhuset's website. It is buildt with React (create-react-app).<br/>
 [The backend for the webpage is available here](https://github.com/sukkerhuset-kjeller/sukkerhuset-backend).
