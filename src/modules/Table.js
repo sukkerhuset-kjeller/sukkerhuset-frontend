@@ -19,17 +19,33 @@ const StyledTable = styled.table`
         vertical-align: top;
         border-top: 1px solid #ddd;
         font-weight: 300;
+
+        @media (max-width: 600px) {
+            display: flex;
+            flex-flow: column nowrap;
+            border: none;
+            padding: 0;
+            &:first-child {
+                border-top: 1px solid #ddd;
+            }
+            &:last-child {
+                border-bottom: 1px solid #ddd;
+            }
+        }
     }
 
     tr:first-child td {
         font-weight: normal;
+
+        @media (max-width: 600px) {
+            display: none;
+        }
     }
 `;
 
 const MailLink = styled.a`
     color: #078B75;
     text-decoration: none;
-    font-size: .875rem;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-all;
