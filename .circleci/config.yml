@@ -39,7 +39,7 @@ jobs:
           key: v1-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - add_ssh_keys:
           fingerprints:
-            - "a9:03:29:d8:21:dd:a2:ec:fe:c3:52:d3:99:c7:94:fa"
+            - 'a9:03:29:d8:21:dd:a2:ec:fe:c3:52:d3:99:c7:94:fa'
       - run:
           name: Add known hosts
           command: ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
@@ -49,7 +49,25 @@ jobs:
       - run:
           name: Deploy to sukkerhuset.no
           command: rsync -va --delete build/ $SSH_USER@$SSH_HOST:~/www/
-      
+  deploy-beta:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:11.6.0
+    steps:
+      - restore_cache:
+          key: v1-build-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+      - add_ssh_keys:
+          fingerprints:
+            - 'a9:03:29:d8:21:dd:a2:ec:fe:c3:52:d3:99:c7:94:fa'
+      - run:
+          name: Add known hosts
+          command: ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+      - run:
+          name: Install rsync
+          command: sudo apt-get update && sudo apt-get install rsync
+      - run:
+          name: Deploy to sukkerhuset.no
+          command: rsync -va --delete build/ $SSH_USER@$SSH_HOST:~/beta/
 
 workflows:
   version: 2
@@ -63,3 +81,10 @@ workflows:
             branches:
               only:
                 - master
+      - deploy-beta:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - beta
