@@ -9,7 +9,6 @@ import { fetchToken, fetchPosts, fetchEvents } from '../actions';
 import ContentArea from '../modules/ContentArea';
 import Link from '../modules/Link';
 import Post from '../modules/Post';
-import Event from '../modules/Event';
 
 const Hero = styled.div`
   background-size: cover;
