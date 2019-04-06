@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PostArticle = styled.article`
-  width: calc(50% - 16px);
+  width: calc(25% - 16px);
   margin: 8px;
   background: #ffffff;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
@@ -18,11 +18,15 @@ const PostArticle = styled.article`
   -ms-word-break: break-all;
   word-break: break-word;
 
-  @media (max-width: 950px) and (min-width: 700px) {
+  @media (max-width: 1200px) and (min-width: 1000px) {
     width: calc(100% / 3 - 16px);
   }
 
-  @media (max-width: 450px) {
+  @media (max-width: 1000px) {
+    width: calc(50% - 16px);
+  }
+
+  @media (max-width: 800px) {
     width: calc(100% - 16px);
   }
 

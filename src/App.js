@@ -16,7 +16,7 @@ const PageLayout = styled.div`
 `;
 
 const Container = styled.div`
-  max-width: calc(100vw -250px);
+  width: calc(100vw - 220px);
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;

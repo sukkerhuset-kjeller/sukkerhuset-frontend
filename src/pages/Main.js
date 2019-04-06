@@ -14,38 +14,28 @@ import Event from '../modules/Event';
 const Hero = styled.div`
   background-size: cover;
   background-position: center center;
-  min-height: 400px;
-  margin-top: -2rem;
-  margin-bottom: 2rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  height: 100vh;
   display: flex;
-  -webkit-box-align: end;
-  -ms-flex-align: end;
+  flex-flow: column nowrap;
   align-items: flex-end;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  //filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.9);
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
 `;
 
 const FlexContentArea = styled(ContentArea)`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  padding: 2rem;
 
-  & > div {
-    margin-bottom: 1rem;
-    &:first-child {
-      width: 60%;
-      @media (max-width: 950px) {
-        order: 2;
-        width: 100%;
-      }
-      & > div {
-        display: flex;
-        flex-flow: row wrap;
-      }
-    }
+  & > div > div {
+    display: flex;
+    flex-flow: row wrap;
   }
 `;
 
@@ -70,8 +60,11 @@ const Main = (props) => {
               .url()})`,
             backgroundPosition: `${props.settings.frontpageImage.hotspot.x *
               100}% ${props.settings.frontpageImage.hotspot.y * 100}%`,
-          }}
-        />
+          }}>
+          <div>Quiz</div>
+          <div>Konsert</div>
+          <div>Karaoke</div>
+        </Hero>
       )}
       <FlexContentArea>
         <div>
@@ -85,21 +78,6 @@ const Main = (props) => {
           </div>
           <Link href="https://www.facebook.com/Sukkerhuset" target="_blank">
             Se mer på facebook
-          </Link>
-        </div>
-        <div>
-          <h1>Arrangementer</h1>
-          <div>
-            {props.facebook.events.length > 0
-              ? props.facebook.events.map((event, index) => (
-                  <Event key={index} data={event} />
-                ))
-              : 'Ingen arrangementer tilgjengelig.'}
-          </div>
-          <Link
-            href="https://www.facebook.com/Sukkerhuset/events"
-            target="_blank">
-            Se alle arrangementer
           </Link>
         </div>
       </FlexContentArea>
