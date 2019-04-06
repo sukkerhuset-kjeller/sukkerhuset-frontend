@@ -1,40 +1,27 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { fetchMenu } from '../actions';
 
-const MenuWrapper = styled.nav`
-  position: absolute;
-  background: rgba(240, 240, 240, 1);
-  z-index: 1;
-  width: 100%;
-  max-width: 10rem;
-  padding: 0.5rem 1.5rem;
-  top: 100px;
-  right: 0;
-  bottom: 0;
-  transform: translateX(100%);
-  transition: transform 300ms ease-in-out;
-
-  &.open {
-    transform: translateX(0);
-  }
-`;
-
 const MenuLink = styled(NavLink)`
   text-decoration: none;
   text-transform: uppercase;
-  color: #000000;
+  color: #ffffff;
   padding: 0.5rem 0;
+  padding-left: 1rem;
   display: block;
-  position: relative;
-  transition: color 100ms ease-in-out;
+  transition: background 100ms ease-in-out;
 
   &:hover,
   &.active {
-    color: #078b75;
+    background: #000000;
+  }
+
+  &.active {
+    border-left: #ae160f 5px inset;
+    padding-left: calc(1rem - 5px);
   }
 `;
 
@@ -44,7 +31,7 @@ const Menu = (props) => {
   }, []);
 
   return (
-    <MenuWrapper className="Menu">
+    <>
       <MenuLink key="home" exact to="/">
         Hjem
       </MenuLink>
@@ -53,7 +40,7 @@ const Menu = (props) => {
           {menuItem.title}
         </MenuLink>
       ))}
-    </MenuWrapper>
+    </>
   );
 };
 
@@ -65,7 +52,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMenu: () => dispatch(fetchMenu()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(React.memo(Menu));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(React.memo(Menu)),
+);
