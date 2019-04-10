@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import MailLink from './MailLink';
 
 const StyledTable = styled.table`
   width: 100%;
@@ -43,20 +44,6 @@ const StyledTable = styled.table`
   }
 `;
 
-const MailLink = styled.a`
-  color: #078b75;
-  text-decoration: none;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-all;
-  word-break: break-word;
-  hyphens: auto;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
 const Table = ({ table }) => {
   return table ? (
     <StyledTable>
@@ -65,13 +52,7 @@ const Table = ({ table }) => {
           <tr key={rindex}>
             {row.cells.map((cell, cindex) => (
               <td key={cindex}>
-                {cell.includes('@sukkerhuset.no') ? (
-                  <MailLink href={`mailto:${cell.toLowerCase()}`}>
-                    {cell}
-                  </MailLink>
-                ) : (
-                  cell
-                )}
+                {cell.includes('mailto:') ? <MailLink link={cell} /> : cell}
               </td>
             ))}
           </tr>
