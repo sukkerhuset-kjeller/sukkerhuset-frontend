@@ -13,6 +13,9 @@ const StyledTable = styled.div`
     border-collapse: collapse;
 
     tr {
+      &:nth-child(odd) {
+        background-color: #f9f9f9;
+      }
       td {
         padding: 5px;
         line-height: 1.42857143;
@@ -20,16 +23,6 @@ const StyledTable = styled.div`
         border-top: 1px solid #ddd;
         font-weight: 300;
         white-space: nowrap;
-      }
-
-      &:nth-child(odd) {
-        background-color: #f9f9f9;
-      }
-
-      &:first-child {
-        td {
-          font-weight: normal;
-        }
       }
     }
   }
