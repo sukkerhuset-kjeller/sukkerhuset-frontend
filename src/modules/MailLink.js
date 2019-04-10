@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const MailLink = ({ link, ...rest }) => styled(
+const MailLink = styled(({ link, ...rest }) => (
   <a href={link} {...rest}>
     {link.replace('mailto:', '')}
-  </a>,
-)`
+  </a>
+))`
   color: #078b75;
   text-decoration: none;
   overflow-wrap: break-word;
