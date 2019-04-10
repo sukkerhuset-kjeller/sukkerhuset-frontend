@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Link = styled.a`
+const ALink = styled.a`
   color: #078b75;
   text-decoration: none;
   text-transform: uppercase;
@@ -10,4 +10,4 @@ const Link = styled.a`
   transition: opacity 500ms 0.5s ease-in-out;
 `;
 
-export default Link;
+export default ALink;

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { builder } from '../index';
@@ -7,7 +7,7 @@ import { builder } from '../index';
 import { fetchToken, fetchPosts, fetchEvents } from '../actions';
 
 import ContentArea from '../modules/ContentArea';
-import Link from '../modules/Link';
+import ALink from '../modules/Link';
 import Post from '../modules/Post';
 
 const Hero = styled.div`
@@ -20,10 +20,24 @@ const Hero = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 4rem;
-  //filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.9);
-  color: #ffffff;
+  color: var(--white);
   font-weight: 600;
   text-transform: uppercase;
+`;
+
+const HeroLink = styled(Link)`
+  color: var(--white);
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 1rem;
+  border: 2px solid var(--white);
+  margin: 0 0.5rem;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    background: var(--white);
+    color: var(--red);
+  }
 `;
 
 const FlexContentArea = styled(ContentArea)`
@@ -63,6 +77,10 @@ const Main = (props) => {
           <div>Quiz</div>
           <div>Konsert</div>
           <div>Karaoke</div>
+          <div>
+            <HeroLink to={'/frivillig'}>Bli frivillig</HeroLink>
+            <HeroLink to={'/utleie'}>Lei lokalet</HeroLink>
+          </div>
         </Hero>
       )}
       <FlexContentArea>
@@ -75,9 +93,9 @@ const Main = (props) => {
                 ))
               : 'Ingen innlegg tilgjengelig.'}
           </div>
-          <Link href="https://www.facebook.com/Sukkerhuset" target="_blank">
+          <ALink href="https://www.facebook.com/Sukkerhuset" target="_blank">
             Se mer på facebook
-          </Link>
+          </ALink>
         </div>
       </FlexContentArea>
     </>

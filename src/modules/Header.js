@@ -13,12 +13,22 @@ const LogoLink = styled(Link)`
   display: block;
   padding: 1rem;
   color: #ffffff;
+  display: flex;
+  flex-flow: column nowrap;
+  text-decoration: none;
 
   ${Logo} {
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #000000;
-    color: #000000;
+    color: var(--black);
     filter: invert(1);
+
+    & + span {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--white);
+      text-transform: uppercase;
+      margin: 0.5rem 0;
+      text-align: center;
+      font-size: 0.75rem;
+    }
   }
 `;
 
@@ -26,10 +36,13 @@ const Header = (props) => {
   return (
     <LogoLink to={'/'}>
       {props.settings ? (
-        <Logo
-          src={builder.image(props.settings.logo).url()}
-          alt={props.settings.pageName}
-        />
+        <>
+          <Logo
+            src={builder.image(props.settings.logo).url()}
+            alt={props.settings.pageName}
+          />
+          <span>Kjeller &amp; scene</span>
+        </>
       ) : (
         'Sukkerhuset'
       )}

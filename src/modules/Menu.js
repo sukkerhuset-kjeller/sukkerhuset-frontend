@@ -8,7 +8,7 @@ import { fetchMenu } from '../actions';
 const MenuLink = styled(NavLink)`
   text-decoration: none;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--white);
   padding: 0.5rem 0;
   padding-left: 1rem;
   display: block;
@@ -16,11 +16,11 @@ const MenuLink = styled(NavLink)`
 
   &:hover,
   &.active {
-    background: #000000;
+    background: var(--black);
   }
 
   &.active {
-    border-left: #ae160f 5px inset;
+    border-left: 5px inset var(--red);
     padding-left: calc(1rem - 5px);
   }
 `;

@@ -8,7 +8,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 const SidebarContainer = styled.div`
-  background: #1d1d1d;
+  background: var(--gray);
   height: 100vh;
   width: 250px;
   flex: 0 0 220px;
