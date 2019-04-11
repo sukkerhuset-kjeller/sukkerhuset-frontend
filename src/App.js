@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { fetchPages, fetchSettings } from './actions';
+import { fetchPages, fetchSettings } from './store/actions';
 
 import Sidebar from './modules/Sidebar';
 import Main from './pages/Main';

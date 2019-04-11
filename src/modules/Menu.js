@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { fetchMenu } from '../actions';
+import { fetchMenu } from '../store/actions';
 
 const MenuLink = styled(NavLink)`
   text-decoration: none;

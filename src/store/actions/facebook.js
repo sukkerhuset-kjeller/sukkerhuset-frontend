@@ -1,4 +1,4 @@
-import { client } from '../index';
+import { client } from '../../index';
 
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 const requestToken = () => ({
@@ -50,7 +50,7 @@ const recievePosts = (posts) => ({
 export const fetchPosts = (token) => (dispatch) => {
   dispatch(requestPosts);
   return fetch(
-    `https://graph.facebook.com/v3.2/151868258198492/?fields=posts.limit(12){full_picture,message,picture,type}&access_token=${token}`,
+    `https://graph.facebook.com/v3.2/151868258198492/?fields=posts.limit(20){full_picture,message,picture,type}&access_token=${token}`,
   )
     .then((res) => {
       if (!res.ok) throw Error(res.statusText);
@@ -58,7 +58,9 @@ export const fetchPosts = (token) => (dispatch) => {
     })
     .then((posts) => {
       return dispatch(
-        recievePosts(posts.posts.data.filter((post) => post.type === 'photo')),
+        recievePosts(
+          posts.posts.data.filter((post) => post.type === 'photo').slice(0, 12),
+        ),
       );
     })
     .catch((error) => dispatch(recievePosts([])));

@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { builder } from '../index';
 
-import { fetchToken, fetchPosts, fetchEvents } from '../actions';
+import { fetchToken, fetchPosts, fetchEvents } from '../store/actions';
 
 import ContentArea from '../modules/ContentArea';
 import ALink from '../modules/Link';
-import Post from '../modules/Post';
+import PostGrid from '../modules/PostGrid';
 
 const Hero = styled.div`
   background-size: cover;
@@ -37,18 +37,6 @@ const HeroLink = styled(Link)`
   &:hover {
     background: var(--white);
     color: var(--red);
-  }
-`;
-
-const FlexContentArea = styled(ContentArea)`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  padding: 2rem;
-
-  & > div > div {
-    display: flex;
-    flex-flow: row wrap;
   }
 `;
 
@@ -83,21 +71,13 @@ const Main = (props) => {
           </div>
         </Hero>
       )}
-      <FlexContentArea>
-        <div>
-          <h1>Dette skjer på sukkerhuset</h1>
-          <div>
-            {props.facebook.posts.length > 0
-              ? props.facebook.posts.map((post) => (
-                  <Post key={post.id} data={post} />
-                ))
-              : 'Ingen innlegg tilgjengelig.'}
-          </div>
-          <ALink href="https://www.facebook.com/Sukkerhuset" target="_blank">
-            Se mer på facebook
-          </ALink>
-        </div>
-      </FlexContentArea>
+      <ContentArea>
+        <h1>Dette skjer på sukkerhuset</h1>
+        <PostGrid posts={props.facebook.posts} />
+        <ALink href="https://www.facebook.com/Sukkerhuset" target="_blank">
+          Se mer på facebook
+        </ALink>
+      </ContentArea>
     </>
   );
 };

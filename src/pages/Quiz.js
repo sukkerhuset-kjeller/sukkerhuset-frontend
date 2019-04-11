@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchQuiz } from '../actions';
+import { fetchQuiz } from '../store/actions';
 
 import ConetentArea from '../modules/ContentArea';
 import Table from '../modules/Table';
