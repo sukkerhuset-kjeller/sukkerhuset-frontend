@@ -7,7 +7,6 @@ import { builder } from '../index';
 import { fetchToken, fetchPosts, fetchEvents } from '../store/actions';
 
 import ContentArea from '../modules/ContentArea';
-import ALink from '../modules/Link';
 import PostGrid from '../modules/PostGrid';
 
 const Hero = styled.div`
@@ -74,9 +73,6 @@ const Main = (props) => {
       <ContentArea>
         <h1>Dette skjer på sukkerhuset</h1>
         <PostGrid posts={props.facebook.posts} />
-        <ALink href="https://www.facebook.com/Sukkerhuset" target="_blank">
-          Se mer på facebook
-        </ALink>
       </ContentArea>
     </>
   );
