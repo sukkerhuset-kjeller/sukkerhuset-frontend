@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import imagesLoaded from 'imagesloaded';
 import Post from './Post';
 
 const PostGrid = (props) => {
   const containerRef = useRef();
-  const { posts } = props;
+  const { posts, location } = props;
   const rowHeight = 20;
   const gap = 16;
 
@@ -28,7 +29,6 @@ const PostGrid = (props) => {
     const rowSpan = Math.ceil(
       (calculateContentHeight(item) + gap + gap) / (rowHeight + gap),
     );
-    console.log('Row span', rowSpan);
     item.style.gridRowEnd = `span ${rowSpan}`;
   };
 
@@ -45,7 +45,7 @@ const PostGrid = (props) => {
     window.addEventListener('resize', () => {
       resizeAllGridItems();
     });
-  }, [posts]);
+  }, [posts, location]);
 
   return (
     <GridContainer ref={containerRef}>
@@ -58,4 +58,4 @@ const PostGrid = (props) => {
   );
 };
 
-export default PostGrid;
+export default withRouter(PostGrid);

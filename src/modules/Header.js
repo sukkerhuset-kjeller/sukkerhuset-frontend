@@ -34,7 +34,7 @@ const LogoLink = styled(Link)`
 
 const Header = (props) => {
   return (
-    <LogoLink to={'/'}>
+    <LogoLink to="/">
       {props.settings ? (
         <>
           <Logo
