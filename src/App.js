@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
-} from "react-router-dom";
-import styled from 'styled-components'
+  Switch,
+  Redirect,
+} from 'react-router-dom';
+import styled from 'styled-components';
 
 import { fetchPages, fetchSettings } from './actions';
 
-import Header from './modules/Header'
-import Footer from './modules/Footer'
-import Menu from './modules/Menu'
+import Header from './modules/Header';
+import Footer from './modules/Footer';
+import Menu from './modules/Menu';
 import Main from './pages/Main';
 import Page from './pages/Page';
 import Quiz from './pages/Quiz';
@@ -24,12 +25,11 @@ const Container = styled.div`
   position: relative;
 `;
 
-const App = props => {
-
+const App = (props) => {
   useEffect(() => {
-    props.fetchSettings()
-    props.fetchPages()
-  }, [])
+    props.fetchSettings();
+    props.fetchPages();
+  }, []);
 
   return (
     <Router>
@@ -40,25 +40,30 @@ const App = props => {
           <Route exact path="/" component={Main} />
           <Route exact path="/quiz" component={Quiz} />
           <Route exact path="/privacy" component={Privacy} />
+          <Route
+            exact
+            path="/verv"
+            render={() => <Redirect to="/frivillig" />}
+          />
           <Route path="/:slug" component={Page} />
         </Switch>
         <Footer />
       </Container>
     </Router>
-  )
-}
+  );
+};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   pages: state.pageReducer.pages,
-  token: state.facebookReducer.token
-})
+  token: state.facebookReducer.token,
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   fetchSettings: () => dispatch(fetchSettings()),
-  fetchPages: () => dispatch(fetchPages())
-})
+  fetchPages: () => dispatch(fetchPages()),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(React.memo(App))
+  mapDispatchToProps,
+)(React.memo(App));
